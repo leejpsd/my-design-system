@@ -15,3 +15,7 @@ export type {
 
 // Hooks
 export { useTheme } from './hooks/useTheme';
+
+// Components
+export { Button, type ButtonProps } from './components/Button';
+export { Spinner, type SpinnerProps } from './components/Spinner';
