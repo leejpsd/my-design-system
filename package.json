@@ -11,7 +11,7 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./styles": "./dist/style.css"
+    "./styles": "./dist/design-system.css"
   },
   "files": [
     "dist"

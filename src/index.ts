@@ -1,9 +1,17 @@
 // Design Tokens
-// export * from './tokens';
+export * from './tokens';
+
+// Theme CSS (consumers import: '@my/design-system/styles')
+import './tokens/themes/light.css';
+import './tokens/themes/dark.css';
 
 // Providers
-// export { ThemeProvider, useTheme } from './providers/ThemeProvider';
+export { ThemeProvider } from './providers/ThemeProvider';
+export type {
+  ThemeMode,
+  ThemeOverride,
+  ThemeProviderProps,
+} from './providers/ThemeContext';
 
-// Components (Phase 3~4에서 점진적으로 추가)
-// export { Button } from './components/Button';
-// export { TextField } from './components/TextField';
+// Hooks
+export { useTheme } from './hooks/useTheme';
