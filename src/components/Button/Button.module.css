@@ -1,0 +1,211 @@
+/* ===== Base ===== */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-sans, sans-serif);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s,
+    transform 0.1s;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== Sizes ===== */
+.sm {
+  height: 32px;
+  padding: 0 var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  height: 40px;
+  padding: 0 var(--spacing-4);
+  font-size: var(--font-size-md);
+}
+
+.lg {
+  height: 48px;
+  padding: 0 var(--spacing-6);
+  font-size: var(--font-size-lg);
+}
+
+/* ===== Solid Variant ===== */
+.solid.primary {
+  background-color: var(--color-primary-600);
+  color: #ffffff;
+}
+
+.solid.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-700);
+  box-shadow: 0 1px 3px 0 rgb(37 99 235 / 0.4);
+}
+
+.solid.primary:active:not(:disabled) {
+  background-color: var(--color-primary-800);
+}
+
+.solid.danger {
+  background-color: var(--color-error);
+  color: #ffffff;
+}
+
+.solid.danger:hover:not(:disabled) {
+  background-color: #dc2626;
+  box-shadow: 0 1px 3px 0 rgb(220 38 38 / 0.4);
+}
+
+.solid.danger:active:not(:disabled) {
+  background-color: #b91c1c;
+}
+
+.solid.neutral {
+  background-color: var(--color-neutral-800);
+  color: #ffffff;
+}
+
+.solid.neutral:hover:not(:disabled) {
+  background-color: var(--color-neutral-900);
+}
+
+.solid.neutral:active:not(:disabled) {
+  background-color: var(--color-neutral-950, #030712);
+}
+
+/* ===== Outline Variant ===== */
+.outline.primary {
+  border-color: var(--color-primary-600);
+  color: var(--color-primary-600);
+  background-color: transparent;
+}
+
+.outline.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+}
+
+.outline.primary:active:not(:disabled) {
+  background-color: var(--color-primary-100);
+}
+
+.outline.danger {
+  border-color: var(--color-error);
+  color: var(--color-error);
+  background-color: transparent;
+}
+
+.outline.danger:hover:not(:disabled) {
+  background-color: #fef2f2;
+}
+
+.outline.neutral {
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+  background-color: transparent;
+}
+
+.outline.neutral:hover:not(:disabled) {
+  background-color: var(--color-bg-secondary);
+}
+
+/* ===== Ghost Variant ===== */
+.ghost.primary {
+  color: var(--color-primary-600);
+  background-color: transparent;
+}
+
+.ghost.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+}
+
+.ghost.danger {
+  color: var(--color-error);
+  background-color: transparent;
+}
+
+.ghost.danger:hover:not(:disabled) {
+  background-color: #fef2f2;
+}
+
+.ghost.neutral {
+  color: var(--color-text-primary);
+  background-color: transparent;
+}
+
+.ghost.neutral:hover:not(:disabled) {
+  background-color: var(--color-bg-secondary);
+}
+
+/* ===== Link Variant ===== */
+.link {
+  background-color: transparent;
+  padding: 0;
+  height: auto;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link.primary {
+  color: var(--color-primary-600);
+}
+
+.link.danger {
+  color: var(--color-error);
+}
+
+.link.neutral {
+  color: var(--color-text-secondary);
+}
+
+.link:hover:not(:disabled) {
+  text-decoration-thickness: 2px;
+}
+
+/* ===== Modifiers ===== */
+.fullWidth {
+  width: 100%;
+}
+
+.loading {
+  position: relative;
+}
+
+/* ===== Inner Elements ===== */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.spinner {
+  flex-shrink: 0;
+}
