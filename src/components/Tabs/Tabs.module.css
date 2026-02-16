@@ -1,0 +1,70 @@
+/* ===== Root ===== */
+.tabs {
+  font-family: var(--font-family-sans, sans-serif);
+}
+
+/* ===== List ===== */
+.list {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+  gap: 0;
+}
+
+/* ===== Trigger ===== */
+.trigger {
+  position: relative;
+  padding: var(--spacing-3) var(--spacing-4);
+  border: none;
+  background: transparent;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    background-color 0.15s;
+  white-space: nowrap;
+}
+
+.trigger:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+
+.trigger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.trigger.selected {
+  color: var(--color-primary-600);
+}
+
+.trigger::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary-600);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.trigger.selected::after {
+  transform: scaleX(1);
+}
+
+/* ===== Content ===== */
+.content {
+  padding: var(--spacing-4) 0;
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+}

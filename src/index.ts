@@ -21,3 +21,4 @@ export { Button, type ButtonProps } from './components/Button';
 export { Spinner, type SpinnerProps } from './components/Spinner';
 export { TextField, type TextFieldProps } from './components/TextField';
 export { Modal, type ModalProps } from './components/Modal';
+export { Tabs, type TabsProps } from './components/Tabs';
