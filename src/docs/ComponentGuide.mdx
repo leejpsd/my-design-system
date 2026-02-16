@@ -1,0 +1,215 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guide/Component Patterns" />
+
+# Component Patterns — Do & Don't
+
+각 컴포넌트의 올바른 사용법과 안티패턴을 정리합니다.
+
+---
+
+## Button
+
+### Do
+
+```tsx
+// ✅ 명확한 variant 사용
+<Button variant="solid">저장</Button>
+<Button variant="outline">취소</Button>
+
+// ✅ 로딩 중에는 isLoading으로 처리
+<Button isLoading>저장 중...</Button>
+
+// ✅ 링크로 동작해야 하면 as prop 사용
+<Button as="a" href="/settings">설정으로 이동</Button>
+
+// ✅ 위험한 동작에는 danger colorScheme
+<Button variant="solid" colorScheme="danger">삭제</Button>
+```
+
+### Don't
+
+```tsx
+// ❌ disabled로 로딩 상태를 처리하지 마세요
+<Button disabled>저장 중...</Button>
+// → isLoading을 쓰면 aria-busy가 자동 설정됩니다
+
+// ❌ onClick 안에서 링크 이동하지 마세요
+<Button onClick={() => window.location.href = '/settings'}>설정</Button>
+// → as="a"를 사용하면 접근성(키보드, 스크린리더)이 보장됩니다
+
+// ❌ 아이콘만 있는 버튼에 텍스트를 생략하지 마세요
+<Button leftIcon={<TrashIcon />} />
+// → aria-label을 반드시 추가하세요
+<Button leftIcon={<TrashIcon />} aria-label="삭제" />
+
+// ❌ isLoading과 disabled를 동시에 쓰지 마세요
+<Button isLoading disabled>저장</Button>
+// → isLoading이 내부적으로 disabled 처리를 포함합니다
+
+// ❌ variant="link"에 colorScheme="danger"를 조합하지 마세요
+<Button variant="link" colorScheme="danger">삭제</Button>
+// → 위험한 동작은 variant="solid" + colorScheme="danger"로 시각적 경고를 주세요
+```
+
+---
+
+## TextField
+
+### Do
+
+```tsx
+// ✅ label은 항상 제공
+<TextField label="이메일" placeholder="example@email.com" />
+
+// ✅ 에러 메시지는 errorMessage prop으로
+<TextField
+  label="비밀번호"
+  errorMessage="8자 이상 입력해주세요"
+/>
+
+// ✅ 보조 설명은 helperText로
+<TextField
+  label="닉네임"
+  helperText="2~20자, 한글/영문/숫자 가능"
+/>
+```
+
+### Don't
+
+```tsx
+// ❌ placeholder를 label 대신 쓰지 마세요
+<TextField placeholder="이메일" />
+// → 입력 시작하면 placeholder가 사라져 어떤 필드인지 알 수 없습니다
+
+// ❌ 에러 스타일을 직접 주지 마세요
+<TextField label="이메일" style={{ borderColor: 'red' }} />
+// → errorMessage prop을 쓰면 aria-invalid, role="alert"이 자동 설정됩니다
+
+// ❌ errorMessage와 helperText를 동시에 전달해도 됩니다
+// → errorMessage가 있으면 helperText 대신 에러 메시지만 표시됩니다
+// → 의도한 동작이니 걱정하지 마세요
+
+// ❌ label을 빈 문자열로 넘기지 마세요
+<TextField label="" placeholder="검색..." />
+// → 시각적으로 label이 불필요하면 aria-label을 사용하세요
+<TextField aria-label="검색" placeholder="검색..." />
+```
+
+---
+
+## Modal
+
+### Do
+
+```tsx
+// ✅ 기본 사용법
+const [isOpen, setIsOpen] = useState(false);
+
+<Button onClick={() => setIsOpen(true)}>모달 열기</Button>
+<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="확인">
+  <p>정말 삭제하시겠습니까?</p>
+</Modal>
+
+// ✅ 중요한 확인에는 closeOnOverlayClick={false}
+<Modal
+  isOpen={isOpen}
+  onClose={() => setIsOpen(false)}
+  title="삭제 확인"
+  closeOnOverlayClick={false}
+>
+  실수로 닫히지 않도록 배경 클릭 닫기를 비활성화합니다.
+</Modal>
+```
+
+### Don't
+
+```tsx
+// ❌ display:none으로 모달을 숨기지 마세요
+<div style={{ display: isOpen ? 'block' : 'none' }}>
+  <div className="modal">...</div>
+</div>
+// → createPortal을 사용해야 z-index 문제와 접근성(포커스 트랩)이 보장됩니다
+
+// ❌ 모달 안에 모달을 중첩하지 마세요
+// → 포커스 트랩이 충돌합니다. 대신 내용을 단계별로 전환하세요
+```
+
+---
+
+## Tabs
+
+### Do
+
+```tsx
+// ✅ Compound Component 패턴으로 선언적 사용
+<Tabs defaultValue="profile">
+  <Tabs.List>
+    <Tabs.Trigger value="profile">프로필</Tabs.Trigger>
+    <Tabs.Trigger value="settings">설정</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="profile">프로필 내용</Tabs.Content>
+  <Tabs.Content value="settings">설정 내용</Tabs.Content>
+</Tabs>
+
+// ✅ 제어 컴포넌트로 외부에서 탭 제어
+const [tab, setTab] = useState('profile');
+<Tabs value={tab} onChange={setTab}>
+  ...
+</Tabs>
+```
+
+### Don't
+
+```tsx
+// ❌ value와 Content를 불일치하지 마세요
+<Tabs.Trigger value="tab1">프로필</Tabs.Trigger>
+<Tabs.Content value="profile">내용</Tabs.Content>
+// → value가 일치해야 탭 전환이 작동합니다
+
+// ❌ disabled 탭에 Content를 기대하지 마세요
+<Tabs.Trigger value="notifications" disabled>알림</Tabs.Trigger>
+<Tabs.Content value="notifications">이 내용은 접근 불가</Tabs.Content>
+```
+
+---
+
+## Toast
+
+### Do
+
+```tsx
+// ✅ 명령형 API로 어디서든 호출
+import { toast } from '@my/design-system';
+
+toast.success('저장 완료!');
+toast.error('오류가 발생했습니다');
+
+// ✅ 앱 루트에 ToastContainer를 한 번만 배치
+import { ToastContainer } from '@my/design-system';
+
+function App() {
+  return (
+    <>
+      <Routes />
+      <ToastContainer />
+    </>
+  );
+}
+
+// ✅ 중요한 알림에는 긴 duration
+toast.warning('저장하지 않은 변경사항이 있습니다', 10000);
+```
+
+### Don't
+
+```tsx
+// ❌ ToastContainer를 여러 개 렌더하지 마세요
+// → 토스트가 중복 표시됩니다
+
+// ❌ 에러 처리를 toast로만 하지 마세요
+try { ... } catch (e) {
+  toast.error('오류 발생');  // 사용자가 놓칠 수 있음
+}
+// → 중요한 에러는 인라인 에러 메시지나 Modal을 함께 사용하세요
+```

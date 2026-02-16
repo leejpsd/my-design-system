@@ -1,0 +1,295 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guide/Design Tokens" />
+
+# Design Tokens
+
+디자인 토큰은 컴포넌트의 시각적 속성을 체계적으로 관리하는 기반입니다.
+이 시스템은 **3계층 구조**로 토큰을 설계했습니다.
+
+## 토큰 아키텍처
+
+```
+Primitive → Semantic → Component
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>계층</th>
+      <th>예시</th>
+      <th>역할</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Primitive</strong></td>
+      <td><code>gray-500: #6b7280</code></td>
+      <td>원시 값, 의미 없는 순수한 색상</td>
+    </tr>
+    <tr>
+      <td><strong>Semantic</strong></td>
+      <td><code>--color-text-secondary: var(--gray-500)</code></td>
+      <td>용도에 따른 의미 부여</td>
+    </tr>
+    <tr>
+      <td><strong>Component</strong></td>
+      <td>Button의 <code>color: var(--color-text-secondary)</code></td>
+      <td>컴포넌트에서 semantic 토큰 사용</td>
+    </tr>
+  </tbody>
+</table>
+
+### 왜 3계층인가?
+
+- **Primitive만 사용하면**: `gray-500`이 텍스트인지 배경인지 알 수 없음
+- **Semantic을 거치면**: 다크모드에서 `--color-text-secondary`만 바꾸면 모든 컴포넌트가 자동 변환
+- **Component에서 직접 값을 쓰면**: 테마 변경 시 모든 컴포넌트를 하나씩 수정해야 함
+
+## Color
+
+### Primitive Colors
+
+원시 색상은 gray, blue, red, green, amber 5개 팔레트로 구성됩니다.
+각 팔레트는 50~900 스케일을 가집니다.
+
+> **"Colors" 스토리**에서 전체 팔레트를 확인할 수 있습니다.
+
+### Semantic Colors
+
+<table>
+  <thead>
+    <tr>
+      <th>토큰</th>
+      <th>라이트</th>
+      <th>다크</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--color-primary-500</code></td>
+      <td><code>#3b82f6</code></td>
+      <td><code>#60a5fa</code></td>
+      <td>주요 액션, 링크</td>
+    </tr>
+    <tr>
+      <td><code>--color-success</code></td>
+      <td><code>#22c55e</code></td>
+      <td><code>#4ade80</code></td>
+      <td>성공 상태</td>
+    </tr>
+    <tr>
+      <td><code>--color-error</code></td>
+      <td><code>#ef4444</code></td>
+      <td><code>#f87171</code></td>
+      <td>에러 상태</td>
+    </tr>
+    <tr>
+      <td><code>--color-warning</code></td>
+      <td><code>#f59e0b</code></td>
+      <td><code>#fbbf24</code></td>
+      <td>경고 상태</td>
+    </tr>
+    <tr>
+      <td><code>--color-info</code></td>
+      <td><code>#3b82f6</code></td>
+      <td><code>#60a5fa</code></td>
+      <td>정보 안내</td>
+    </tr>
+    <tr>
+      <td><code>--color-bg-primary</code></td>
+      <td><code>#ffffff</code></td>
+      <td><code>#111827</code></td>
+      <td>기본 배경</td>
+    </tr>
+    <tr>
+      <td><code>--color-text-primary</code></td>
+      <td><code>#111827</code></td>
+      <td><code>#f9fafb</code></td>
+      <td>기본 텍스트</td>
+    </tr>
+  </tbody>
+</table>
+
+## Spacing
+
+4px 기반 스케일로 일관된 여백 체계를 유지합니다.
+
+<table>
+  <thead>
+    <tr>
+      <th>토큰</th>
+      <th>값</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--spacing-1</code></td>
+      <td>4px</td>
+      <td>최소 간격 (아이콘과 텍스트 사이)</td>
+    </tr>
+    <tr>
+      <td><code>--spacing-2</code></td>
+      <td>8px</td>
+      <td>관련 요소 간 간격</td>
+    </tr>
+    <tr>
+      <td><code>--spacing-3</code></td>
+      <td>12px</td>
+      <td>컴포넌트 내부 패딩</td>
+    </tr>
+    <tr>
+      <td><code>--spacing-4</code></td>
+      <td>16px</td>
+      <td>섹션 간 기본 간격</td>
+    </tr>
+    <tr>
+      <td><code>--spacing-6</code></td>
+      <td>24px</td>
+      <td>카드/모달 패딩</td>
+    </tr>
+    <tr>
+      <td><code>--spacing-8</code></td>
+      <td>32px</td>
+      <td>큰 섹션 간 간격</td>
+    </tr>
+  </tbody>
+</table>
+
+## Typography
+
+<table>
+  <thead>
+    <tr>
+      <th>프리셋</th>
+      <th>크기</th>
+      <th>굵기</th>
+      <th>행간</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Heading 1</td>
+      <td>1.875rem (30px)</td>
+      <td>Bold</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <td>Heading 2</td>
+      <td>1.5rem (24px)</td>
+      <td>Semibold</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <td>Heading 3</td>
+      <td>1.25rem (20px)</td>
+      <td>Semibold</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <td>Body Large</td>
+      <td>1.125rem (18px)</td>
+      <td>Regular</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <td>Body Medium</td>
+      <td>1rem (16px)</td>
+      <td>Regular</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <td>Caption</td>
+      <td>0.75rem (12px)</td>
+      <td>Regular</td>
+      <td>1.5</td>
+    </tr>
+  </tbody>
+</table>
+
+## Radius & Shadow
+
+### Border Radius
+
+<table>
+  <thead>
+    <tr>
+      <th>토큰</th>
+      <th>값</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--radius-sm</code></td>
+      <td>4px</td>
+      <td>태그, 뱃지</td>
+    </tr>
+    <tr>
+      <td><code>--radius-md</code></td>
+      <td>8px</td>
+      <td>버튼, 인풋</td>
+    </tr>
+    <tr>
+      <td><code>--radius-lg</code></td>
+      <td>12px</td>
+      <td>카드, 모달</td>
+    </tr>
+    <tr>
+      <td><code>--radius-full</code></td>
+      <td>9999px</td>
+      <td>아바타, 원형 버튼</td>
+    </tr>
+  </tbody>
+</table>
+
+### Box Shadow
+
+<table>
+  <thead>
+    <tr>
+      <th>토큰</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--shadow-sm</code></td>
+      <td>미세한 깊이감 (카드 기본)</td>
+    </tr>
+    <tr>
+      <td><code>--shadow-md</code></td>
+      <td>드롭다운, 팝오버</td>
+    </tr>
+    <tr>
+      <td><code>--shadow-lg</code></td>
+      <td>토스트, 플로팅 요소</td>
+    </tr>
+    <tr>
+      <td><code>--shadow-xl</code></td>
+      <td>모달</td>
+    </tr>
+  </tbody>
+</table>
+
+## 다크모드
+
+CSS 변수 기반으로 `data-theme` 속성 전환만으로 다크모드를 지원합니다.
+
+```css
+/* light (기본) */
+:root {
+  --color-bg-primary: #ffffff;
+  --color-text-primary: #111827;
+}
+
+/* dark */
+[data-theme='dark'] {
+  --color-bg-primary: #111827;
+  --color-text-primary: #f9fafb;
+}
+```
+
+컴포넌트 코드 변경 없이 자동으로 테마가 전환됩니다.
