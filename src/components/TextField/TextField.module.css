@@ -1,0 +1,119 @@
+/* ===== Wrapper ===== */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  font-family: var(--font-family-sans, sans-serif);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* ===== Label ===== */
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* ===== Input Wrapper ===== */
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-primary);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.inputWrapper:hover:not(.disabled):not(.error) {
+  border-color: var(--color-neutral-400);
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-border-focus) 20%, transparent);
+}
+
+/* ===== Sizes ===== */
+.sm {
+  height: 32px;
+  padding: 0 var(--spacing-2);
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  height: 40px;
+  padding: 0 var(--spacing-3);
+  font-size: var(--font-size-md);
+}
+
+.lg {
+  height: 48px;
+  padding: 0 var(--spacing-4);
+  font-size: var(--font-size-lg);
+}
+
+/* ===== Input ===== */
+.input {
+  flex: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: var(--color-text-primary);
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* ===== States ===== */
+.error {
+  border-color: var(--color-error);
+}
+
+.error:focus-within {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-bg-secondary);
+}
+
+.disabled .input {
+  cursor: not-allowed;
+}
+
+.readonly {
+  background-color: var(--color-bg-secondary);
+}
+
+/* ===== Slots ===== */
+.slot {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+/* ===== Helper / Error Text ===== */
+.helperText {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.errorMessage {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+}
