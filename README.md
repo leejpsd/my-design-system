@@ -1,5 +1,8 @@
 # @my/design-system
 
+[![CI](https://github.com/leejpsd/my-design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/leejpsd/my-design-system/actions/workflows/ci.yml)
+[![Storybook](https://img.shields.io/badge/Storybook-deployed-ff4785?logo=storybook)](https://leejpsd.github.io/my-design-system)
+
 React + TypeScript 기반의 디자인 시스템 라이브러리.
 접근성, 테스트, 문서화를 갖춘 프로덕션 레벨 UI 컴포넌트를 제공합니다.
 
