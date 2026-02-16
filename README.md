@@ -23,6 +23,7 @@ React + TypeScript 기반의 디자인 시스템 라이브러리.
 | 문서화 | Storybook 10 |
 | 테스트 | Storybook Interaction Test |
 | 접근성 | @storybook/addon-a11y |
+| CI/CD | GitHub Actions + GitHub Pages |
 
 ## 컴포넌트
 
@@ -37,6 +38,40 @@ React + TypeScript 기반의 디자인 시스템 라이브러리.
 ## 아키텍처
 
 ```
+┌─────────────────────────────────────────────────┐
+│                  Consumer App                    │
+│         import { Button } from '@my/ds'          │
+│         import '@my/ds/styles'                   │
+└──────────────────────┬──────────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────────┐
+│              @my/design-system                   │
+│                                                  │
+│  ┌─────────────┐  ┌──────────┐  ┌────────────┐  │
+│  │  Components  │  │ Providers │  │   Hooks    │  │
+│  │  Button      │  │ Theme    │  │  useTheme  │  │
+│  │  TextField   │  │ Provider │  │  useFocus  │  │
+│  │  Modal       │  └─────┬────┘  │  Trap      │  │
+│  │  Tabs        │        │       └────────────┘  │
+│  │  Toast       │        │                       │
+│  │  Spinner     │        │                       │
+│  └──────┬───────┘        │                       │
+│         │                │                       │
+│  ┌──────▼────────────────▼──────────────────┐   │
+│  │           Design Tokens (CSS Variables)    │   │
+│  │                                            │   │
+│  │  Primitive    Semantic      Component      │   │
+│  │  gray-500 ──▶ text-primary ──▶ btn-color   │   │
+│  │  blue-500 ──▶ primary     ──▶ input-border │   │
+│  │                                            │   │
+│  │  light.css    dark.css                     │   │
+│  └────────────────────────────────────────────┘   │
+└──────────────────────────────────────────────────┘
+```
+
+### 디렉토리 구조
+
+```
 src/
 ├── tokens/           # 디자인 토큰 (3계층: primitive → semantic → component)
 │   ├── colors.ts     # gray/blue/red/green/amber 팔레트
@@ -46,7 +81,7 @@ src/
 │   ├── shadow.ts     # 그림자
 │   └── themes/       # CSS 변수 (light.css, dark.css)
 ├── providers/        # ThemeProvider (다크모드 + 커스텀 토큰 오버라이드)
-├── hooks/            # useTheme, useFocusTrap
+├── hooks/            # useTheme, useFocusTrap, usePrevious
 ├── components/       # UI 컴포넌트
 │   ├── Button/
 │   ├── TextField/
@@ -64,7 +99,7 @@ src/
 pnpm install
 
 # Storybook 실행 (개발 서버)
-pnpm storybook
+pnpm dev
 
 # 라이브러리 빌드
 pnpm build
@@ -72,6 +107,20 @@ pnpm build
 # 린트 + 타입 체크
 pnpm lint
 pnpm type-check
+```
+
+## Example App
+
+`example/` 디렉토리에 이 라이브러리를 실제로 import하여 사용하는 데모 앱이 포함되어 있습니다.
+
+- **Login 페이지** — TextField 유효성 검사 + Button 로딩 + Toast 피드백
+- **Dashboard 페이지** — Tabs, Modal 확인 다이얼로그, Spinner, Toast
+- **다크 모드** — ThemeProvider + useTheme 훅으로 라이트/다크 전환
+
+```bash
+# 라이브러리 빌드 후 Example App 실행
+pnpm build
+cd example && pnpm dev
 ```
 
 ## 사용법
@@ -94,7 +143,7 @@ function App() {
 ### 테마 적용
 
 ```tsx
-import { ThemeProvider, useTheme } from '@my/design-system';
+import { ThemeProvider, useTheme, Button } from '@my/design-system';
 
 function App() {
   return (
