@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { clsx } from 'clsx';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { usePrevious } from '../../hooks/usePrevious';
 import styles from './Modal.module.css';
 
 export interface ModalProps {
@@ -111,16 +112,3 @@ export function Modal({
   );
 }
 
-/** 이전 값을 추적하는 유틸 */
-function usePrevious<T>(value: T): T | undefined {
-  const [prev, setPrev] = useState<{ value: T; current: T }>({
-    value,
-    current: value,
-  });
-
-  if (prev.current !== value) {
-    setPrev({ value: prev.current, current: value });
-  }
-
-  return prev.value;
-}
