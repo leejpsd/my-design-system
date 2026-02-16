@@ -12,22 +12,31 @@ const dirname =
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
+const isLibBuild = process.env.LIB_BUILD === 'true';
+
 export default defineConfig({
-  plugins: [react(), dts({ tsconfigPath: './tsconfig.lib.json' })],
-  build: {
-    lib: {
-      entry: path.resolve(dirname, 'src/index.ts'),
-      formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
-    },
-    rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
-      output: {
-        preserveModules: true,
-        preserveModulesRoot: 'src',
+  plugins: [
+    react(),
+    ...(isLibBuild
+      ? [dts({ tsconfigPath: './tsconfig.lib.json' })]
+      : []),
+  ],
+  ...(isLibBuild && {
+    build: {
+      lib: {
+        entry: path.resolve(dirname, 'src/index.ts'),
+        formats: ['es', 'cjs'],
+        fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
+      },
+      rollupOptions: {
+        external: ['react', 'react-dom', 'react/jsx-runtime'],
+        output: {
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+        },
       },
     },
-  },
+  }),
   test: {
     projects: [
       {
