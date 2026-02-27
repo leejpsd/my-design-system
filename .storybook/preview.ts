@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 import theme from './theme';
-import '../src/tokens/themes/light.css';
-import '../src/tokens/themes/dark.css';
+import '../packages/tokens/src/themes/light.css';
+import '../packages/tokens/src/themes/dark.css';
 
 const preview: Preview = {
   parameters: {
