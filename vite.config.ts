@@ -1,7 +1,6 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
@@ -12,32 +11,15 @@ const dirname =
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
-const isLibBuild = process.env.LIB_BUILD === 'true';
-
 export default defineConfig({
-  plugins: [
-    react(),
-    ...(isLibBuild
-      ? [dts({ tsconfigPath: './tsconfig.lib.json' })]
-      : []),
-  ],
-  ...(isLibBuild && {
-    build: {
-      lib: {
-        entry: path.resolve(dirname, 'src/index.ts'),
-        formats: ['es', 'cjs'],
-        fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
-      },
-      rollupOptions: {
-        external: ['react', 'react-dom', 'react/jsx-runtime'],
-        output: {
-          preserveModules: true,
-          preserveModulesRoot: 'src',
-          exports: 'named',
-        },
-      },
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@my/tokens': path.resolve(dirname, 'packages/tokens/src'),
+      '@my/core': path.resolve(dirname, 'packages/core/src'),
+      '@my/react': path.resolve(dirname, 'packages/react/src'),
     },
-  }),
+  },
   test: {
     projects: [
       {

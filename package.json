@@ -1,39 +1,20 @@
 {
   "name": "@my/design-system",
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "packageManager": "pnpm@8.6.2",
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    },
-    "./styles": "./dist/design-system.css"
-  },
-  "files": [
-    "dist"
-  ],
-  "sideEffects": [
-    "**/*.css"
-  ],
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "LIB_BUILD=true vite build",
+    "build": "turbo build",
     "build:storybook": "storybook build",
-    "lint": "eslint .",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "type-check": "tsc --noEmit"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@chromatic-com/storybook": "^5.0.1",
     "@eslint/js": "^9.39.1",
     "@storybook/addon-a11y": "^10.2.8",
@@ -47,7 +28,6 @@
     "@vitejs/plugin-react": "^5.1.1",
     "@vitest/browser-playwright": "^4.0.18",
     "@vitest/coverage-v8": "^4.0.18",
-    "clsx": "^2.1.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.0.1",
@@ -59,6 +39,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "storybook": "^10.2.8",
+    "turbo": "^2.8.9",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
     "vite": "^7.3.1",
