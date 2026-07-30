@@ -1,5 +1,6 @@
 dist
 node_modules
+packages/tokens/src/themes/*.css
 pnpm-lock.yaml
 storybook-static
 .turbo

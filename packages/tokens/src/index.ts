@@ -13,3 +13,5 @@ export {
 } from './typography';
 export { radius } from './radius';
 export { shadow } from './shadow';
+export { duration, easing } from './motion';
+export { lightTheme, darkTheme, type ThemeTokenName } from './themes';

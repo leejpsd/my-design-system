@@ -1,6 +1,13 @@
 {
   "name": "@my/tokens",
   "version": "0.1.0",
+  "description": "디자인 토큰 — TS 단일 소스에서 CSS 변수를 생성하는 3계층 토큰 체계",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leejpsd/my-design-system.git",
+    "directory": "packages/tokens"
+  },
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -13,10 +20,19 @@
     },
     "./styles": "./dist/style.css"
   },
-  "files": ["dist"],
-  "sideEffects": ["**/*.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
-    "build": "vite build",
+    "generate": "tsx scripts/generate-css.ts",
+    "generate:check": "tsx scripts/generate-css.ts --check",
+    "build": "pnpm generate && vite build",
     "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.3"
   }
 }
