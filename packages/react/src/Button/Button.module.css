@@ -11,11 +11,11 @@
   line-height: var(--line-height-tight);
   cursor: pointer;
   transition:
-    background-color 0.15s,
-    border-color 0.15s,
-    color 0.15s,
-    box-shadow 0.15s,
-    transform 0.1s;
+    background-color var(--duration-fast),
+    border-color var(--duration-fast),
+    color var(--duration-fast),
+    box-shadow var(--duration-fast),
+    transform var(--duration-fast);
   white-space: nowrap;
   user-select: none;
   text-decoration: none;

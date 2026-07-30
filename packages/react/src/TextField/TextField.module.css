@@ -26,8 +26,8 @@
   border-radius: var(--radius-md);
   background-color: var(--color-bg-primary);
   transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
+    border-color var(--duration-fast),
+    box-shadow var(--duration-fast);
 }
 
 .inputWrapper:hover:not(.disabled):not(.error) {
@@ -36,7 +36,8 @@
 
 .inputWrapper:focus-within {
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-border-focus) 20%, transparent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--color-border-focus) 20%, transparent);
 }
 
 /* ===== Sizes ===== */

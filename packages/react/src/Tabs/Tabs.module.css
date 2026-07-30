@@ -21,8 +21,8 @@
   color: var(--color-text-tertiary);
   cursor: pointer;
   transition:
-    color 0.15s,
-    background-color 0.15s;
+    color var(--duration-fast),
+    background-color var(--duration-fast);
   white-space: nowrap;
 }
 
@@ -55,7 +55,7 @@
   height: 2px;
   background-color: var(--color-primary-600);
   transform: scaleX(0);
-  transition: transform 0.2s ease;
+  transition: transform var(--duration-normal) ease;
 }
 
 .trigger.selected::after {

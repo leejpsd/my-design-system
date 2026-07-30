@@ -29,8 +29,8 @@
   opacity: 0;
   transform: translateX(calc(100% + 16px));
   transition:
-    opacity 0.25s ease,
-    transform 0.3s cubic-bezier(0.21, 1.02, 0.73, 1);
+    opacity var(--duration-slow) var(--easing-default),
+    transform var(--duration-slow) var(--easing-enter);
 }
 
 .toast.visible {
@@ -108,8 +108,8 @@
   color: var(--color-text-tertiary);
   cursor: pointer;
   transition:
-    background-color 0.15s,
-    color 0.15s;
+    background-color var(--duration-fast),
+    color var(--duration-fast);
 }
 
 .closeButton:hover {
