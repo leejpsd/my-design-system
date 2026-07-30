@@ -8,42 +8,43 @@ React + TypeScript 기반의 디자인 시스템 모노레포.
 
 ## 설계 원칙
 
-- **접근성 내장** — WAI-ARIA 패턴 준수, 키보드 내비게이션, 스크린리더 지원
+- **접근성 내장** — WAI-ARIA 패턴 준수, 키보드 내비게이션, 스크린리더 지원, `prefers-reduced-motion` 대응
 - **Zero-config** — 기본값만으로 바로 사용 가능, 필요시 커스터마이징
-- **CSS 변수 기반 테마** — 런타임 오버헤드 없이 라이트/다크 모드 전환
+- **CSS 변수 기반 테마** — 런타임 오버헤드 없이 라이트/다크 전환, OS 설정 자동 감지(`system` 모드)
+- **토큰 단일 소스** — TS 토큰에서 테마 CSS를 codegen, CI가 drift를 검증
 - **타입 안전** — 모든 Props에 TypeScript 타입 제공
 
 ## 기술 스택
 
-| 영역 | 선택 |
-|------|------|
-| 프레임워크 | React 19 + TypeScript 5.9 |
-| 스타일링 | CSS Modules + CSS Variables |
-| 번들러 | Vite 7 (Library Mode) |
-| 모노레포 | pnpm Workspace + Turborepo |
-| 버저닝 | Changesets |
-| 문서화 | Storybook 10 |
-| 테스트 | Storybook Interaction Test |
-| 접근성 | @storybook/addon-a11y |
-| CI/CD | GitHub Actions + GitHub Pages |
+| 영역       | 선택                          |
+| ---------- | ----------------------------- |
+| 프레임워크 | React 19 + TypeScript 5.9     |
+| 스타일링   | CSS Modules + CSS Variables   |
+| 번들러     | Vite 7 (Library Mode)         |
+| 모노레포   | pnpm Workspace + Turborepo    |
+| 버저닝     | Changesets                    |
+| 문서화     | Storybook 10                  |
+| 테스트     | Storybook Interaction Test    |
+| 접근성     | @storybook/addon-a11y         |
+| CI/CD      | GitHub Actions + GitHub Pages |
 
 ## 패키지 구조
 
-| 패키지 | 설명 | 의존성 |
-|--------|------|--------|
-| **@my/tokens** | 디자인 토큰 (색상, 간격, 타이포) + CSS 변수 | 없음 |
-| **@my/core** | ThemeProvider, useTheme, useFocusTrap 등 | @my/tokens |
-| **@my/react** | UI 컴포넌트 (Button, TextField, Modal, Tabs, Toast, Spinner) | @my/tokens, @my/core |
+| 패키지         | 설명                                                         | 의존성               |
+| -------------- | ------------------------------------------------------------ | -------------------- |
+| **@my/tokens** | 디자인 토큰 — TS 단일 소스에서 테마 CSS 변수를 생성(codegen) | 없음                 |
+| **@my/core**   | ThemeProvider, useTheme, useFocusTrap 등                     | @my/tokens           |
+| **@my/react**  | UI 컴포넌트 (Button, TextField, Modal, Tabs, Toast, Spinner) | @my/tokens, @my/core |
 
 ## 컴포넌트
 
-| 컴포넌트 | 패턴 | 핵심 기능 |
-|----------|------|-----------|
-| **Button** | 다형성 (`as` prop) | 4 variants, 3 sizes, 3 colorSchemes, 로딩, 아이콘 슬롯 |
-| **TextField** | forwardRef + useId | label 연결, 에러/헬퍼 텍스트, prefix/suffix 슬롯 |
-| **Modal** | Portal | 포커스 트랩, ESC 닫기, 스크롤 잠금, 진입/퇴장 애니메이션 |
-| **Tabs** | Compound Component | Context API, 화살표 키보드 내비게이션, WAI-ARIA |
-| **Toast** | 명령형 API | `toast.success()` 외부 호출, 자동 dismiss, 스택 관리 |
+| 컴포넌트      | 패턴               | 핵심 기능                                                |
+| ------------- | ------------------ | -------------------------------------------------------- |
+| **Button**    | 다형성 (`as` prop) | 4 variants, 3 sizes, 3 colorSchemes, 로딩, 아이콘 슬롯   |
+| **TextField** | forwardRef + useId | label 연결, 에러/헬퍼 텍스트, prefix/suffix 슬롯         |
+| **Modal**     | Portal             | 포커스 트랩, ESC 닫기, 스크롤 잠금, 진입/퇴장 애니메이션 |
+| **Tabs**      | Compound Component | Context API, 화살표 키보드 내비게이션, WAI-ARIA          |
+| **Toast**     | 명령형 API         | `toast.success()` 외부 호출, 자동 dismiss, 스택 관리     |
 
 ## 아키텍처
 

@@ -150,13 +150,13 @@ const [isOpen, setIsOpen] = useState(false);
   </Tabs.List>
   <Tabs.Content value="profile">프로필 내용</Tabs.Content>
   <Tabs.Content value="settings">설정 내용</Tabs.Content>
-</Tabs>
+</Tabs>;
 
 // ✅ 제어 컴포넌트로 외부에서 탭 제어
 const [tab, setTab] = useState('profile');
 <Tabs value={tab} onChange={setTab}>
   ...
-</Tabs>
+</Tabs>;
 ```
 
 ### Don't
@@ -180,13 +180,13 @@ const [tab, setTab] = useState('profile');
 
 ```tsx
 // ✅ 명령형 API로 어디서든 호출
-import { toast } from '@my/design-system';
+import { toast } from '@my/react';
 
 toast.success('저장 완료!');
 toast.error('오류가 발생했습니다');
 
 // ✅ 앱 루트에 ToastContainer를 한 번만 배치
-import { ToastContainer } from '@my/design-system';
+import { ToastContainer } from '@my/react';
 
 function App() {
   return (

@@ -23,18 +23,30 @@ Primitive → Semantic → Component
   </thead>
   <tbody>
     <tr>
-      <td><strong>Primitive</strong></td>
-      <td><code>gray-500: #6b7280</code></td>
+      <td>
+        <strong>Primitive</strong>
+      </td>
+      <td>
+        <code>gray-500: #6b7280</code>
+      </td>
       <td>원시 값, 의미 없는 순수한 색상</td>
     </tr>
     <tr>
-      <td><strong>Semantic</strong></td>
-      <td><code>--color-text-secondary: var(--gray-500)</code></td>
+      <td>
+        <strong>Semantic</strong>
+      </td>
+      <td>
+        <code>--color-text-secondary: var(--gray-500)</code>
+      </td>
       <td>용도에 따른 의미 부여</td>
     </tr>
     <tr>
-      <td><strong>Component</strong></td>
-      <td>Button의 <code>color: var(--color-text-secondary)</code></td>
+      <td>
+        <strong>Component</strong>
+      </td>
+      <td>
+        Button의 <code>color: var(--color-text-secondary)</code>
+      </td>
       <td>컴포넌트에서 semantic 토큰 사용</td>
     </tr>
   </tbody>
@@ -45,6 +57,23 @@ Primitive → Semantic → Component
 - **Primitive만 사용하면**: `gray-500`이 텍스트인지 배경인지 알 수 없음
 - **Semantic을 거치면**: 다크모드에서 `--color-text-secondary`만 바꾸면 모든 컴포넌트가 자동 변환
 - **Component에서 직접 값을 쓰면**: 테마 변경 시 모든 컴포넌트를 하나씩 수정해야 함
+
+### 단일 소스 파이프라인
+
+TS 토큰이 유일한 원천이고, 테마 CSS는 전부 codegen 산출물입니다.
+`src/themes.ts`가 모드(light/dark)별 시맨틱 값을 primitive 참조로 정의하면,
+`pnpm generate`가 `themes/light.css`·`themes/dark.css`를 생성합니다.
+
+```
+colors.ts (primitive)
+   └─ themes.ts (모드별 시맨틱 매핑)  ← 단일 소스
+        └─ scripts/generate-css.ts   ← codegen
+             └─ themes/{light,dark}.css (AUTO-GENERATED)
+```
+
+TS 상수와 CSS 변수를 따로 관리하면 값이 어긋나도 잡을 수 없습니다.
+CI의 **Token Drift Check**(`pnpm generate:check`)가 커밋된 CSS와 TS 소스의
+불일치를 빌드 실패로 만들어 동기화를 강제합니다.
 
 ## Color
 
@@ -68,45 +97,87 @@ Primitive → Semantic → Component
   </thead>
   <tbody>
     <tr>
-      <td><code>--color-primary-500</code></td>
-      <td><code>#3b82f6</code></td>
-      <td><code>#60a5fa</code></td>
+      <td>
+        <code>--color-primary-500</code>
+      </td>
+      <td>
+        <code>#3b82f6</code>
+      </td>
+      <td>
+        <code>#60a5fa</code>
+      </td>
       <td>주요 액션, 링크</td>
     </tr>
     <tr>
-      <td><code>--color-success</code></td>
-      <td><code>#22c55e</code></td>
-      <td><code>#4ade80</code></td>
+      <td>
+        <code>--color-success</code>
+      </td>
+      <td>
+        <code>#22c55e</code>
+      </td>
+      <td>
+        <code>#4ade80</code>
+      </td>
       <td>성공 상태</td>
     </tr>
     <tr>
-      <td><code>--color-error</code></td>
-      <td><code>#ef4444</code></td>
-      <td><code>#f87171</code></td>
+      <td>
+        <code>--color-error</code>
+      </td>
+      <td>
+        <code>#ef4444</code>
+      </td>
+      <td>
+        <code>#f87171</code>
+      </td>
       <td>에러 상태</td>
     </tr>
     <tr>
-      <td><code>--color-warning</code></td>
-      <td><code>#f59e0b</code></td>
-      <td><code>#fbbf24</code></td>
+      <td>
+        <code>--color-warning</code>
+      </td>
+      <td>
+        <code>#f59e0b</code>
+      </td>
+      <td>
+        <code>#fbbf24</code>
+      </td>
       <td>경고 상태</td>
     </tr>
     <tr>
-      <td><code>--color-info</code></td>
-      <td><code>#3b82f6</code></td>
-      <td><code>#60a5fa</code></td>
+      <td>
+        <code>--color-info</code>
+      </td>
+      <td>
+        <code>#3b82f6</code>
+      </td>
+      <td>
+        <code>#60a5fa</code>
+      </td>
       <td>정보 안내</td>
     </tr>
     <tr>
-      <td><code>--color-bg-primary</code></td>
-      <td><code>#ffffff</code></td>
-      <td><code>#111827</code></td>
+      <td>
+        <code>--color-bg-primary</code>
+      </td>
+      <td>
+        <code>#ffffff</code>
+      </td>
+      <td>
+        <code>#111827</code>
+      </td>
       <td>기본 배경</td>
     </tr>
     <tr>
-      <td><code>--color-text-primary</code></td>
-      <td><code>#111827</code></td>
-      <td><code>#f9fafb</code></td>
+      <td>
+        <code>--color-text-primary</code>
+      </td>
+      <td>
+        <code>#111827</code>
+      </td>
+      <td>
+        <code>#f9fafb</code>
+      </td>
       <td>기본 텍스트</td>
     </tr>
   </tbody>
@@ -126,32 +197,44 @@ Primitive → Semantic → Component
   </thead>
   <tbody>
     <tr>
-      <td><code>--spacing-1</code></td>
+      <td>
+        <code>--spacing-1</code>
+      </td>
       <td>4px</td>
       <td>최소 간격 (아이콘과 텍스트 사이)</td>
     </tr>
     <tr>
-      <td><code>--spacing-2</code></td>
+      <td>
+        <code>--spacing-2</code>
+      </td>
       <td>8px</td>
       <td>관련 요소 간 간격</td>
     </tr>
     <tr>
-      <td><code>--spacing-3</code></td>
+      <td>
+        <code>--spacing-3</code>
+      </td>
       <td>12px</td>
       <td>컴포넌트 내부 패딩</td>
     </tr>
     <tr>
-      <td><code>--spacing-4</code></td>
+      <td>
+        <code>--spacing-4</code>
+      </td>
       <td>16px</td>
       <td>섹션 간 기본 간격</td>
     </tr>
     <tr>
-      <td><code>--spacing-6</code></td>
+      <td>
+        <code>--spacing-6</code>
+      </td>
       <td>24px</td>
       <td>카드/모달 패딩</td>
     </tr>
     <tr>
-      <td><code>--spacing-8</code></td>
+      <td>
+        <code>--spacing-8</code>
+      </td>
       <td>32px</td>
       <td>큰 섹션 간 간격</td>
     </tr>
@@ -223,22 +306,30 @@ Primitive → Semantic → Component
   </thead>
   <tbody>
     <tr>
-      <td><code>--radius-sm</code></td>
+      <td>
+        <code>--radius-sm</code>
+      </td>
       <td>4px</td>
       <td>태그, 뱃지</td>
     </tr>
     <tr>
-      <td><code>--radius-md</code></td>
+      <td>
+        <code>--radius-md</code>
+      </td>
       <td>8px</td>
       <td>버튼, 인풋</td>
     </tr>
     <tr>
-      <td><code>--radius-lg</code></td>
+      <td>
+        <code>--radius-lg</code>
+      </td>
       <td>12px</td>
       <td>카드, 모달</td>
     </tr>
     <tr>
-      <td><code>--radius-full</code></td>
+      <td>
+        <code>--radius-full</code>
+      </td>
       <td>9999px</td>
       <td>아바타, 원형 버튼</td>
     </tr>
@@ -256,19 +347,27 @@ Primitive → Semantic → Component
   </thead>
   <tbody>
     <tr>
-      <td><code>--shadow-sm</code></td>
+      <td>
+        <code>--shadow-sm</code>
+      </td>
       <td>미세한 깊이감 (카드 기본)</td>
     </tr>
     <tr>
-      <td><code>--shadow-md</code></td>
+      <td>
+        <code>--shadow-md</code>
+      </td>
       <td>드롭다운, 팝오버</td>
     </tr>
     <tr>
-      <td><code>--shadow-lg</code></td>
+      <td>
+        <code>--shadow-lg</code>
+      </td>
       <td>토스트, 플로팅 요소</td>
     </tr>
     <tr>
-      <td><code>--shadow-xl</code></td>
+      <td>
+        <code>--shadow-xl</code>
+      </td>
       <td>모달</td>
     </tr>
   </tbody>
@@ -293,3 +392,59 @@ CSS 변수 기반으로 `data-theme` 속성 전환만으로 다크모드를 지�
 ```
 
 컴포넌트 코드 변경 없이 자동으로 테마가 전환됩니다.
+`ThemeProvider`의 `defaultMode="system"`을 사용하면 OS 설정(`prefers-color-scheme`)을
+실시간 감지해 자동 전환됩니다.
+
+## Motion
+
+전환 시간과 이징도 토큰으로 관리합니다. 모든 컴포넌트의 `transition`은
+duration 토큰만 참조하므로, **`prefers-reduced-motion: reduce` 환경에서는
+토큰이 0ms로 재정의되어 장식적 모션이 일괄 비활성화**됩니다.
+(Spinner처럼 로딩 상태 전달에 필수적인 모션은 예외)
+
+<table>
+  <thead>
+    <tr>
+      <th>토큰</th>
+      <th>값</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--duration-fast</code>
+      </td>
+      <td>150ms</td>
+      <td>hover/focus 색상 전환</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--duration-normal</code>
+      </td>
+      <td>200ms</td>
+      <td>모달·탭 인디케이터 전환</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--duration-slow</code>
+      </td>
+      <td>300ms</td>
+      <td>토스트 진입/퇴장</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--easing-default</code>
+      </td>
+      <td>ease</td>
+      <td>일반 전환</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--easing-enter</code>
+      </td>
+      <td>cubic-bezier(0.21, 1.02, 0.73, 1)</td>
+      <td>진입 애니메이션 (살짝 튀는 느낌)</td>
+    </tr>
+  </tbody>
+</table>

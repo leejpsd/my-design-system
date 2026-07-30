@@ -9,7 +9,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 ## 설치
 
 ```bash
-pnpm add @my/design-system
+pnpm add @my/react
 ```
 
 ## 기본 사용법
@@ -20,13 +20,20 @@ pnpm add @my/design-system
 
 ```tsx
 // main.tsx 또는 App.tsx
-import '@my/design-system/styles';
+import '@my/react/styles';
 ```
 
 ### 2. 컴포넌트 사용
 
 ```tsx
-import { Button, TextField, Modal, Tabs, toast, ToastContainer } from '@my/design-system';
+import {
+  Button,
+  TextField,
+  Modal,
+  Tabs,
+  toast,
+  ToastContainer,
+} from '@my/react';
 
 function App() {
   return (
@@ -45,30 +52,37 @@ function App() {
 `ThemeProvider`로 다크모드 전환과 커스텀 토큰 오버라이드가 가능합니다.
 
 ```tsx
-import { ThemeProvider } from '@my/design-system';
+import { ThemeProvider } from '@my/react';
 
 function App() {
-  return (
-    <ThemeProvider defaultMode="light">
-      {/* 앱 내용 */}
-    </ThemeProvider>
-  );
+  return <ThemeProvider defaultMode="light">{/* 앱 내용 */}</ThemeProvider>;
 }
 ```
 
 #### 다크모드 전환
 
 ```tsx
-import { useTheme } from '@my/design-system';
+import { useTheme } from '@my/react';
 
 function ThemeToggle() {
-  const { mode, toggleMode } = useTheme();
+  const { resolvedMode, toggleMode } = useTheme();
   return (
     <button onClick={toggleMode}>
-      현재: {mode === 'light' ? '라이트' : '다크'}
+      현재: {resolvedMode === 'light' ? '라이트' : '다크'}
     </button>
   );
 }
+```
+
+#### 시스템 설정 따라가기
+
+`defaultMode="system"`을 주면 OS의 `prefers-color-scheme` 설정을 감지해
+자동으로 라이트/다크를 전환하고, 설정이 바뀌면 실시간으로 반영됩니다.
+`mode`는 사용자가 선택한 값(`'light' | 'dark' | 'system'`),
+`resolvedMode`는 실제 화면에 적용된 값(`'light' | 'dark'`)입니다.
+
+```tsx
+<ThemeProvider defaultMode="system">{/* 앱 내용 */}</ThemeProvider>
 ```
 
 #### 커스텀 토큰 오버라이드
@@ -76,9 +90,9 @@ function ThemeToggle() {
 ```tsx
 <ThemeProvider
   defaultMode="light"
-  themeOverride={{
-    '--color-primary-500': '#8b5cf6',  // 보라색 브랜드 컬러
-    '--radius-md': '16px',              // 더 둥근 모서리
+  theme={{
+    '--color-primary-500': '#8b5cf6', // 보라색 브랜드 컬러
+    '--radius-md': '16px', // 더 둥근 모서리
   }}
 >
   {/* 브랜드 커스텀 테마 적용 */}
@@ -97,29 +111,43 @@ function ThemeToggle() {
   </thead>
   <tbody>
     <tr>
-      <td><strong>Button</strong></td>
-      <td>다형성 (<code>as</code> prop)</td>
+      <td>
+        <strong>Button</strong>
+      </td>
+      <td>
+        다형성 (<code>as</code> prop)
+      </td>
       <td>solid/outline/ghost/link 변형, 로딩 상태</td>
     </tr>
     <tr>
-      <td><strong>TextField</strong></td>
+      <td>
+        <strong>TextField</strong>
+      </td>
       <td>forwardRef</td>
       <td>label 연결, 에러/헬퍼 텍스트, prefix/suffix 슬롯</td>
     </tr>
     <tr>
-      <td><strong>Modal</strong></td>
+      <td>
+        <strong>Modal</strong>
+      </td>
       <td>Portal</td>
       <td>포커스 트랩, ESC 닫기, 스크롤 잠금</td>
     </tr>
     <tr>
-      <td><strong>Tabs</strong></td>
+      <td>
+        <strong>Tabs</strong>
+      </td>
       <td>Compound Component</td>
       <td>키보드 내비게이션, WAI-ARIA</td>
     </tr>
     <tr>
-      <td><strong>Toast</strong></td>
+      <td>
+        <strong>Toast</strong>
+      </td>
       <td>명령형 API</td>
-      <td><code>toast.success()</code> 외부 호출, 자동 dismiss</td>
+      <td>
+        <code>toast.success()</code> 외부 호출, 자동 dismiss
+      </td>
     </tr>
   </tbody>
 </table>

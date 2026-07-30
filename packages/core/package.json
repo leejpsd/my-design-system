@@ -1,6 +1,13 @@
 {
   "name": "@my/core",
   "version": "0.1.0",
+  "description": "프레임워크 로직 계층 — ThemeProvider와 공용 훅 (useTheme, useFocusTrap, usePrevious)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leejpsd/my-design-system.git",
+    "directory": "packages/core"
+  },
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -12,7 +19,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "vite build",
     "type-check": "tsc --noEmit"
