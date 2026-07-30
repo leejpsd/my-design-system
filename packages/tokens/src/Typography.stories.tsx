@@ -21,10 +21,24 @@ function TypographyScale() {
         maxWidth: 700,
       }}
     >
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#0f172a', marginBottom: 8 }}>
+      <h2
+        style={{
+          fontSize: '1.25rem',
+          fontWeight: 600,
+          color: '#0f172a',
+          marginBottom: 8,
+        }}
+      >
         Typography Scale
       </h2>
-      <p style={{ fontSize: 14, color: '#64748b', marginBottom: 24, lineHeight: 1.5 }}>
+      <p
+        style={{
+          fontSize: 14,
+          color: '#64748b',
+          marginBottom: 24,
+          lineHeight: 1.5,
+        }}
+      >
         6단계 타이포그래피 프리셋. 제목 3단계 + 본문 2단계 + 캡션.
       </p>
       {Object.entries(typography).map(([name, style]) => (
@@ -49,7 +63,13 @@ function TypographyScale() {
             >
               {labels[name] || name}
             </div>
-            <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>
+            <div
+              style={{
+                fontSize: 11,
+                color: '#94a3b8',
+                fontFamily: 'monospace',
+              }}
+            >
               {style.fontSize}
             </div>
           </div>

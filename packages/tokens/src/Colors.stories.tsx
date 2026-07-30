@@ -4,10 +4,25 @@ import { gray, blue, red, green, amber } from './colors';
 const colorScales = { gray, blue, red, green, amber };
 
 const semanticColors = [
-  { token: '--color-primary-500', label: 'Primary', light: '#3b82f6', dark: '#60a5fa' },
-  { token: '--color-success', label: 'Success', light: '#22c55e', dark: '#4ade80' },
+  {
+    token: '--color-primary-500',
+    label: 'Primary',
+    light: '#3b82f6',
+    dark: '#60a5fa',
+  },
+  {
+    token: '--color-success',
+    label: 'Success',
+    light: '#22c55e',
+    dark: '#4ade80',
+  },
   { token: '--color-error', label: 'Error', light: '#ef4444', dark: '#f87171' },
-  { token: '--color-warning', label: 'Warning', light: '#f59e0b', dark: '#fbbf24' },
+  {
+    token: '--color-warning',
+    label: 'Warning',
+    light: '#f59e0b',
+    dark: '#fbbf24',
+  },
   { token: '--color-info', label: 'Info', light: '#3b82f6', dark: '#60a5fa' },
 ];
 
@@ -22,12 +37,31 @@ const swatch: React.CSSProperties = {
 
 function ColorPalette() {
   return (
-    <div style={{ fontFamily: 'var(--font-family-sans, sans-serif)', maxWidth: 800 }}>
+    <div
+      style={{
+        fontFamily: 'var(--font-family-sans, sans-serif)',
+        maxWidth: 800,
+      }}
+    >
       {/* Semantic Colors */}
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: 16, color: '#0f172a' }}>
+      <h2
+        style={{
+          fontSize: '1.25rem',
+          fontWeight: 600,
+          marginBottom: 16,
+          color: '#0f172a',
+        }}
+      >
         Semantic Colors
       </h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginBottom: 48 }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(5, 1fr)',
+          gap: 12,
+          marginBottom: 48,
+        }}
+      >
         {semanticColors.map(({ token, label, light }) => (
           <div
             key={token}
@@ -48,8 +82,17 @@ function ColorPalette() {
                 marginBottom: 10,
               }}
             />
-            <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{label}</div>
-            <div style={{ fontSize: 11, color: '#64748b', fontFamily: 'monospace', marginTop: 2 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+              {label}
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                color: '#64748b',
+                fontFamily: 'monospace',
+                marginTop: 2,
+              }}
+            >
               {token}
             </div>
           </div>
@@ -57,7 +100,14 @@ function ColorPalette() {
       </div>
 
       {/* Primitive Palettes */}
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: 16, color: '#0f172a' }}>
+      <h2
+        style={{
+          fontSize: '1.25rem',
+          fontWeight: 600,
+          marginBottom: 16,
+          color: '#0f172a',
+        }}
+      >
         Primitive Palettes
       </h2>
       {Object.entries(colorScales).map(([name, scale]) => (
@@ -81,7 +131,8 @@ function ColorPalette() {
                   style={{ ...swatch, backgroundColor: color }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)';
+                    e.currentTarget.style.boxShadow =
+                      '0 4px 12px rgba(0,0,0,0.12)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = '';

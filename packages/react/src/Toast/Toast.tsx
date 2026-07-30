@@ -38,7 +38,11 @@ function ToastItemComponent({ item }: { item: ToastItem }) {
 
   return (
     <div
-      className={clsx(styles.toast, styles[item.type], visible && styles.visible)}
+      className={clsx(
+        styles.toast,
+        styles[item.type],
+        visible && styles.visible,
+      )}
       role="status"
       aria-live="polite"
     >

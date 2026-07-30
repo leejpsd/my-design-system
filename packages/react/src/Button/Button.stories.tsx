@@ -37,12 +37,19 @@ export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {(['solid', 'outline', 'ghost', 'link'] as const).map((variant) => (
-        <div key={variant} style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <div
+          key={variant}
+          style={{ display: 'flex', gap: '12px', alignItems: 'center' }}
+        >
           <span style={{ width: '64px', fontSize: '13px', color: '#6b7280' }}>
             {variant}
           </span>
           {(['primary', 'danger', 'neutral'] as const).map((colorScheme) => (
-            <Button key={colorScheme} variant={variant} colorScheme={colorScheme}>
+            <Button
+              key={colorScheme}
+              variant={variant}
+              colorScheme={colorScheme}
+            >
               {colorScheme}
             </Button>
           ))}

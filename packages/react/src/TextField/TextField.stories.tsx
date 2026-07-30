@@ -45,7 +45,14 @@ export const ErrorState: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '320px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        maxWidth: '320px',
+      }}
+    >
       <TextField size="sm" label="Small" placeholder="Small input" />
       <TextField size="md" label="Medium" placeholder="Medium input" />
       <TextField size="lg" label="Large" placeholder="Large input" />
@@ -78,7 +85,14 @@ export const WithSlots: Story = {
     );
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '320px' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          maxWidth: '320px',
+        }}
+      >
         <TextField
           label="검색"
           placeholder="검색어를 입력하세요"

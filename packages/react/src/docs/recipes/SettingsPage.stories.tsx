@@ -40,11 +40,7 @@ function SettingsPageDemo() {
               paddingTop: 24,
             }}
           >
-            <TextField
-              label="이름"
-              defaultValue="홍길동"
-              fullWidth
-            />
+            <TextField label="이름" defaultValue="홍길동" fullWidth />
             <TextField
               label="소개"
               placeholder="자기소개를 입력하세요"
@@ -74,11 +70,7 @@ function SettingsPageDemo() {
               readOnly
               helperText="이메일은 변경할 수 없습니다"
             />
-            <TextField
-              label="현재 비밀번호"
-              type="password"
-              fullWidth
-            />
+            <TextField label="현재 비밀번호" type="password" fullWidth />
             <TextField
               label="새 비밀번호"
               type="password"
@@ -86,11 +78,19 @@ function SettingsPageDemo() {
               helperText="8자 이상, 영문/숫자/특수문자 조합"
             />
             <div style={{ display: 'flex', gap: 8 }}>
-              <Button onClick={() => toast.success('비밀번호가 변경되었습니다')}>
+              <Button
+                onClick={() => toast.success('비밀번호가 변경되었습니다')}
+              >
                 비밀번호 변경
               </Button>
             </div>
-            <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb', margin: '8px 0' }} />
+            <hr
+              style={{
+                border: 'none',
+                borderTop: '1px solid #e5e7eb',
+                margin: '8px 0',
+              }}
+            />
             <div>
               <Button
                 variant="outline"
@@ -134,10 +134,7 @@ function SettingsPageDemo() {
       >
         <p>정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</p>
         <div style={{ display: 'flex', gap: 8, marginTop: 16 }}>
-          <Button
-            variant="outline"
-            onClick={() => setDeleteOpen(false)}
-          >
+          <Button variant="outline" onClick={() => setDeleteOpen(false)}>
             취소
           </Button>
           <Button

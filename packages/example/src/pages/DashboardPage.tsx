@@ -94,9 +94,7 @@ export function DashboardPage() {
               helperText="영문, 숫자, 특수문자 포함 8자 이상"
             />
             <div>
-              <Button
-                onClick={() => toast.info('비밀번호 변경은 데모입니다')}
-              >
+              <Button onClick={() => toast.info('비밀번호 변경은 데모입니다')}>
                 비밀번호 변경
               </Button>
             </div>

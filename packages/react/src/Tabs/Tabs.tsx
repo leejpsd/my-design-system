@@ -63,9 +63,7 @@ function TabsList({ children }: TabsListProps) {
     if (!list) return;
 
     const triggers = Array.from(
-      list.querySelectorAll<HTMLButtonElement>(
-        '[role="tab"]:not([disabled])',
-      ),
+      list.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])'),
     );
     const currentIndex = triggers.findIndex(
       (t) => t === document.activeElement,

@@ -99,7 +99,11 @@ export function LoginPage() {
         로그인
       </Button>
 
-      <Button variant="link" fullWidth onClick={() => toast.info('데모 앱입니다')}>
+      <Button
+        variant="link"
+        fullWidth
+        onClick={() => toast.info('데모 앱입니다')}
+      >
         비밀번호를 잊으셨나요?
       </Button>
     </form>

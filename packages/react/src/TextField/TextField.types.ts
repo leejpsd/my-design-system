@@ -1,7 +1,9 @@
 import type { InputHTMLAttributes, ReactNode } from 'react';
 
-export interface TextFieldProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface TextFieldProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'size'
+> {
   /** 라벨 텍스트 */
   label?: string;
   /** 도움 텍스트 */

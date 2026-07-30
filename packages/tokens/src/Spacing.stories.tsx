@@ -12,10 +12,24 @@ function SpacingScale() {
         maxWidth: 600,
       }}
     >
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#0f172a', marginBottom: 8 }}>
+      <h2
+        style={{
+          fontSize: '1.25rem',
+          fontWeight: 600,
+          color: '#0f172a',
+          marginBottom: 8,
+        }}
+      >
         Spacing Scale
       </h2>
-      <p style={{ fontSize: 14, color: '#64748b', marginBottom: 20, lineHeight: 1.5 }}>
+      <p
+        style={{
+          fontSize: 14,
+          color: '#64748b',
+          marginBottom: 20,
+          lineHeight: 1.5,
+        }}
+      >
         4px 기반 스케일. 일관된 여백 체계를 유지합니다.
       </p>
       {Object.entries(spacing).map(([key, value]) => (
