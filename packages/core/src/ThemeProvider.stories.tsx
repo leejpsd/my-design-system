@@ -3,7 +3,7 @@ import { ThemeProvider } from './ThemeProvider';
 import { useTheme } from './useTheme';
 
 function ThemeDemo() {
-  const { mode, toggleMode } = useTheme();
+  const { mode, resolvedMode, setMode, toggleMode } = useTheme();
 
   return (
     <div
@@ -19,21 +19,38 @@ function ThemeDemo() {
       <h2 style={{ marginTop: 0 }}>ThemeProvider Demo</h2>
       <p style={{ color: 'var(--color-text-secondary)' }}>
         Current mode: <strong>{mode}</strong>
+        {mode === 'system' && <> (resolved: {resolvedMode})</>}
       </p>
-      <button
-        onClick={toggleMode}
-        style={{
-          padding: '8px 16px',
-          backgroundColor: 'var(--color-primary-500)',
-          color: '#fff',
-          border: 'none',
-          borderRadius: 'var(--radius-md)',
-          cursor: 'pointer',
-          fontSize: '14px',
-        }}
-      >
-        Toggle to {mode === 'light' ? 'Dark' : 'Light'}
-      </button>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <button
+          onClick={toggleMode}
+          style={{
+            padding: '8px 16px',
+            backgroundColor: 'var(--color-primary-500)',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 'var(--radius-md)',
+            cursor: 'pointer',
+            fontSize: '14px',
+          }}
+        >
+          Toggle to {resolvedMode === 'light' ? 'Dark' : 'Light'}
+        </button>
+        <button
+          onClick={() => setMode('system')}
+          style={{
+            padding: '8px 16px',
+            backgroundColor: 'transparent',
+            color: 'var(--color-text-primary)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-md)',
+            cursor: 'pointer',
+            fontSize: '14px',
+          }}
+        >
+          Follow System
+        </button>
+      </div>
       <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
         {['primary', 'success', 'error', 'warning'].map((color) => (
           <div
@@ -85,4 +102,12 @@ export const Default: Story = {
 
 export const CustomTheme: Story = {
   render: () => <CustomThemeStory />,
+};
+
+export const SystemMode: Story = {
+  render: () => (
+    <ThemeProvider defaultMode="system">
+      <ThemeDemo />
+    </ThemeProvider>
+  ),
 };

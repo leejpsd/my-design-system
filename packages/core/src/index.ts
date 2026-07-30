@@ -3,6 +3,7 @@ export { ThemeProvider } from './ThemeProvider';
 export {
   ThemeContext,
   type ThemeMode,
+  type ResolvedThemeMode,
   type ThemeOverride,
   type ThemeProviderProps,
   type ThemeContextValue,

@@ -1,7 +1,7 @@
 import { Button, useTheme } from '@my/react';
 
 export function ThemeToggle() {
-  const { mode, toggleMode } = useTheme();
+  const { resolvedMode, toggleMode } = useTheme();
 
   return (
     <Button
@@ -10,10 +10,10 @@ export function ThemeToggle() {
       size="sm"
       onClick={toggleMode}
       aria-label={
-        mode === 'light' ? '다크 모드로 전환' : '라이트 모드로 전환'
+        resolvedMode === 'light' ? '다크 모드로 전환' : '라이트 모드로 전환'
       }
     >
-      {mode === 'light' ? (
+      {resolvedMode === 'light' ? (
         <svg
           width="18"
           height="18"

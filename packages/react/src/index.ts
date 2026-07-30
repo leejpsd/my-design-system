@@ -5,6 +5,7 @@ export * from '@my/tokens';
 export {
   ThemeProvider,
   type ThemeMode,
+  type ResolvedThemeMode,
   type ThemeOverride,
   type ThemeProviderProps,
   useTheme,
