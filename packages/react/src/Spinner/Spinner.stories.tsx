@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, expect } from 'storybook/test';
+import { expect } from 'storybook/test';
 import { Spinner } from './Spinner';
 
 const meta: Meta<typeof Spinner> = {
@@ -65,8 +65,8 @@ export const WithLabel: Story = {
 export const AccessibilityTest: Story = {
   args: { size: 'md' },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const svg = canvas.getByRole('img', { hidden: true });
+    // 장식 요소라 접근성 트리에 role이 없으므로 DOM에서 직접 조회한다
+    const svg = canvasElement.querySelector('svg');
 
     // Spinner는 장식 요소이므로 aria-hidden="true"
     await expect(svg).toHaveAttribute('aria-hidden', 'true');
@@ -76,14 +76,13 @@ export const AccessibilityTest: Story = {
 export const SizeRenderTest: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16 }}>
-      <Spinner size="sm" data-testid="spinner-sm" />
-      <Spinner size="md" data-testid="spinner-md" />
-      <Spinner size="lg" data-testid="spinner-lg" />
+      <Spinner size="sm" />
+      <Spinner size="md" />
+      <Spinner size="lg" />
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const spinners = canvas.getAllByRole('img', { hidden: true });
+    const spinners = canvasElement.querySelectorAll('svg');
 
     // 3개 사이즈 모두 렌더링 확인
     await expect(spinners).toHaveLength(3);

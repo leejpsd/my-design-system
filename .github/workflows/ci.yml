@@ -27,8 +27,18 @@ jobs:
       - name: Type Check
         run: pnpm type-check
 
+      # 커밋된 테마 CSS가 TS 토큰 소스와 일치하는지 검증
+      - name: Token Drift Check
+        run: pnpm --filter @my/tokens generate:check
+
       - name: Build Packages
         run: pnpm build
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      - name: Interaction Tests
+        run: pnpm test
 
       - name: Build Storybook
         run: pnpm build:storybook

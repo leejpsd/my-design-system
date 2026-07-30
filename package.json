@@ -10,6 +10,7 @@
     "build:storybook": "storybook build",
     "lint": "turbo lint",
     "type-check": "turbo type-check",
+    "test": "vitest run",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
