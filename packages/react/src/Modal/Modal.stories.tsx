@@ -95,6 +95,25 @@ export const OpenCloseTest: Story = {
   },
 };
 
+export const AccessibleName: Story = {
+  render: () => <ModalDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: '모달 열기' }));
+
+    // 제목이 aria-labelledby로 연결되어 접근 가능한 이름이 된다
+    const dialog = await within(document.body).findByRole('dialog', {
+      name: '모달 제목',
+    });
+    await expect(dialog).toHaveAttribute('aria-modal', 'true');
+
+    const labelledBy = dialog.getAttribute('aria-labelledby');
+    await expect(labelledBy).toBeTruthy();
+    const heading = document.getElementById(labelledBy as string);
+    await expect(heading).toHaveTextContent('모달 제목');
+  },
+};
+
 export const EscKeyClose: Story = {
   render: () => <ModalDemo />,
   play: async ({ canvasElement }) => {

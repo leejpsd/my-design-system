@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useId, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { clsx } from 'clsx';
 import { useFocusTrap, usePrevious } from '@my/core';
@@ -17,6 +17,8 @@ export interface ModalProps {
   size?: 'sm' | 'md' | 'lg';
   /** 오버레이 클릭 시 닫기 여부 */
   closeOnOverlayClick?: boolean;
+  /** title이 없을 때 스크린리더가 읽을 대체 이름 */
+  'aria-label'?: string;
 }
 
 export function Modal({
@@ -26,10 +28,21 @@ export function Modal({
   children,
   size = 'md',
   closeOnOverlayClick = true,
+  'aria-label': ariaLabel,
 }: ModalProps) {
   // closing: 퇴장 애니메이션 진행 중
   const [closing, setClosing] = useState(false);
   const focusRef = useFocusTrap(isOpen);
+  const titleId = useId();
+
+  // 접근 가능한 이름 없이 열리면 개발자에게 경고
+  useEffect(() => {
+    if (isOpen && !title && !ariaLabel) {
+      console.warn(
+        '[Modal] title 또는 aria-label 중 하나는 지정해야 스크린리더가 다이얼로그를 식별할 수 있습니다.',
+      );
+    }
+  }, [isOpen, title, ariaLabel]);
 
   // isOpen false 전환 시 퇴장 애니메이션 시작
   const prevOpen = usePrevious(isOpen);
@@ -74,7 +87,6 @@ export function Modal({
       data-state={isOpen ? 'open' : 'closed'}
       onClick={closeOnOverlayClick ? onClose : undefined}
       onTransitionEnd={handleTransitionEnd}
-      aria-hidden="true"
     >
       <div
         ref={focusRef}
@@ -82,12 +94,15 @@ export function Modal({
         data-state={isOpen ? 'open' : 'closed'}
         role="dialog"
         aria-modal="true"
-        aria-label={title}
+        aria-labelledby={title ? titleId : undefined}
+        aria-label={title ? undefined : ariaLabel}
         onClick={(e) => e.stopPropagation()}
       >
         {title && (
           <div className={styles.header}>
-            <h2 className={styles.title}>{title}</h2>
+            <h2 id={titleId} className={styles.title}>
+              {title}
+            </h2>
             <button
               className={styles.closeButton}
               onClick={onClose}
@@ -110,4 +125,3 @@ export function Modal({
     document.body,
   );
 }
-
